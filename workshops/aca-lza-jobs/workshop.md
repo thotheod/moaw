@@ -87,45 +87,58 @@ You need to be owner of the Azure subscription you will use to deploy the ACA LZ
 
 ---
 
-## deploy ACA LZA (optional)
+## Deploy ACA LZA (optional)
 
 The deployment of a full blown ACA-LZA might take well above 30 minutes.
 During the lab, it would be great if you have already an ACA LZA deployed, so that we can focus on how you deploy Azure Container Jobs, and lose no time on deploying the LZA.
 
-The easiest way to deploy ACA-LZA -- without any sample applications - is described below:
+The easiest way to deploy ACA-LZA - without any sample applications - is described below:
 
 1.  Head to **aka.ms/aca-lza,** and then navigate to     **scenarios/aca-internal.**
 2.  Click on the "Deploy to Azure" button
 
 ![A screenshot of a computer Description automatically generated](assets/image1.png)
 
-1.  Select the correct subscription (one that you are owner), and in the first step of the deployment wizard enter
+3.  Select the correct subscription (one that you are owner), and in the first step of the deployment wizard enter
+   
     a.  A workload name that you like
+ 
     b.  Environment name (i.e. dev)
+ 
     c.  Deploy Zone redundant Resources: false (for cost reasons, and reduced deployment times)
+ 
     d.  Deploy Azure Policies: true
+ 
     e.  Everything else default or void values
 
 > ![A screenshot of a computer Description automatically generated](assets/image2.png)
 
-4.  Next step, "Network Settings". Keep the default values, is OK for testing purposes
+4.  Next step, "Network Settings". Keep the default values, they are OK for testing purposes
+   
 5.  "Jump-Box settings (VM)" step: Select VM OS type" \> Linux. Keep the default VM Size is OK for the testing purposes. Add a strong password for the azureuser
 
 ![A screenshot of a computer Description automatically generated](assets/image3.png)
 
 6.  **"Deployment Feature Flags"** step: the most important flags to set are: 
-    a.  Deploy Bastion**:** true (So that you can have access to the Jump-box)
+   
+    a.  Deploy Bastion: true (So that you can have access to the Jump-box)
+   
     b.  Deploy Hello World Sample: false (We do not need to deploy a sample app and application gateway. We will deploy the Jobs Sample app as a lab during the training.
+   
     c.  For Cost reasons and reduced deployment time we also recommend the following settings:
+   
         i.  Deploy Redis cache: false
+   
         ii. Enable Application Insights: false
-        iii. Enable Dapr Instrumentation: false
+   
+        iii. Enable dapr Instrumentation: false
+   
         iv. Enable DDoS Protection: Disabled
 
 ![A screenshot of a computer Description automatically generated](assets/image4.png)
 
 7.  Then click on "Review and Create"
-With these settings, the deployment should take around *30 minutes*.
+  With these settings, the deployment should take around *30 minutes*.
 
 
 ---
@@ -137,9 +150,11 @@ The behavior of the dotnet console application is controlled at runtime through 
 - Sender job: 
   
   by setting the ```WORKEROLE``` to the value ```sender``` this implementation sends a configurable amount of messages to the input queue in the Azure Service Bus namespace. The payload of each message contains a random positive integer number comprised in a configurable range.
+
 - Processor job: 
   
   by setting the ```WORKEROLE``` to the value ```processor``` this implementation reads the messages from the input queue in the Azure Service Bus namespace, calculates the [Fibonacci number](https://en.wikipedia.org/wiki/Fibonacci_sequence) for the actual parameter, and writes the result in the output queue in the same namespace.
+  
 - Receiver job: 
   
   by setting the ```WORKEROLE``` to the value ```receiver``` this implementation reads the result messages from the output queue and logs it at the console.
